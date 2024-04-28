@@ -6,7 +6,14 @@ function ToDoInput(props) {
     return (
         <header>
             <input type="text" value={todoValue} onChange={(e) => {setTodoValue(e.target.value)}} placeholder="Enter your todo task" />
-            <button onClick={() => {handleAddTodos(todoValue); setTodoValue('')}}>Add task</button>
+            <button onClick={() => {
+                if (todoValue.trim().length > 0) {
+                    handleAddTodos(todoValue)
+                    setTodoValue('')
+                }
+                }
+            }>
+                Add task</button>
         </header>
 
     );

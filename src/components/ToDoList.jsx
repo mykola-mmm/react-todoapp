@@ -7,7 +7,7 @@ import ToDoCard from './ToDoCard'
 
 export default function ToDoList(props) {
 
-    const { todos, handleDeleteTodo} = props
+    const { todos } = props
 
     return (
         <ul className='main'>

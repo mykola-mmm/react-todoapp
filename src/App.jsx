@@ -46,6 +46,8 @@ function App() {
         return
       }
       localTodos = JSON.parse(localTodos).todos
+      console.log(localStorage.getItem('todos'))
+      // console.log(JSON.parse(localTodos).todos)
       setTodos(localTodos)  
     }, [])
 
