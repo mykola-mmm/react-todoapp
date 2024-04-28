@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ToDoInput from './components/ToDoInput'
 import ToDoList from './components/ToDoList'
 
@@ -13,9 +13,14 @@ function App() {
   const [todos, setTodos] = useState([])
   const [todoValue, setTodoValue] = useState('')
 
+  function persistData(newList) {
+    localStorage.setItem('todos', JSON.stringify({todos: newList}))
+  }
+
   function handleAddTodos(todo) {
     const newTodos = [...todos, todo]
     setTodos(newTodos)
+    persistData(newTodos)
   }
 
   function handleDeleteTodo(index) {
@@ -23,6 +28,7 @@ function App() {
       return todoIndex !== index
     })
     setTodos(newTodos)
+    persistData(newTodos)
   }
 
   function handleEditTodo(index) {
@@ -31,6 +37,17 @@ function App() {
       handleDeleteTodo(index)
     }
 
+    useEffect(() => {
+      if (!localStorage) {
+        return
+      }
+      let localTodos = localStorage.getItem('todos')
+      if (!localTodos) {
+        return
+      }
+      localTodos = JSON.parse(localTodos).todos
+      setTodos(localTodos)  
+    }, [])
 
   return (
     <>
